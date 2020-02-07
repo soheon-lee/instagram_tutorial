@@ -15,13 +15,11 @@ Including another URLconf
 """
 #from django.contrib import admin
 from django.urls import path
-from .views import AccountView, Login1, Login, CommentView
+from .views import AccountView, Login
 
 urlpatterns = [
 #    path('admin/', admin.site.urls), # because I deleted admin in instagram.settings.py
     path('/sign-up', AccountView.as_view()),
     path('', AccountView.as_view()),
-    path('/log-in', Login.as_view()),
-    path('/log-in-1', Login1.as_view()),
-    path('/comment', CommentView.as_view()),
+    path('/log-in', Login.as_view())
 ]
