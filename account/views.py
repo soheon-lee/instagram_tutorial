@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 
 class AccountView(View): # inherit
     def post(self, request):
-        data = json.loads(request.body) # if it's correctly loaded, it's type of json
+        data = json.loads(request.body)
         Account(
                 name = data['name'],
                 email = data['email'],
@@ -25,25 +25,14 @@ class Login(View):
         login_email     = login_info['email']
         login_password  = login_info['password']
 
-        print("======LOG-IN INFO======")
-        print("LOGIN-EMAIL:",login_email)
-        print("LOGIN-PASSWORD:",login_password)
-        print("==========END==========")
-
         try:
             login_account = Account.objects.get(email=login_email)
             if login_password == login_account.password:
-                message = "Logged in"
-                print(message)
-                return JsonResponse({'message':message}, status=200)
+                return JsonResponse({'message':"OK"}, status=200)
             else:
-                message = "LOGIN FAIL: wrong password"
-                print(message)
-                return JsonResponse({'message':message}, status=200)
+                return JsonResponse({'message':"Login Failed"}, status=401)
         except:
-            message = "LOGIN FAIL: please sign-up first"
-            print(message)
-            return JsonResponse({'message':message}, status=200)
+            return JsonResponse({'message':"Login Failed"}, status=401)
 
 # COMMENT            
 class CommentView(View):
