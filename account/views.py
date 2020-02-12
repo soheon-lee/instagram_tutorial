@@ -40,5 +40,5 @@ class SigninView(View):
             
             return HttpResponse(status=400)
 
-        except KeyError as e:
-            return HttpResponse(f'INVALID_KEY',status=400)
+        except KeyError:
+            return HttpResponse('INVALID_KEY',status=400)
