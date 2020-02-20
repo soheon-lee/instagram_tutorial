@@ -2,10 +2,11 @@ import json
 import jwt
 import bcrypt
 
-from .models        import Account
-
 from django.views   import View
 from django.http    import HttpResponse, JsonResponse
+
+from .models        import Account
+from instagram.settings      import SECRET_KEY
 
 # SIGN-UP
 class AccountView(View): # inherit
@@ -37,7 +38,7 @@ class SigninView(View):
                 selected_user = Account.objects.get(email=user_info['email'])
 
                 if bcrypt.checkpw(user_info['password'].encode('utf-8'), selected_user.password.encode('utf-8')):
-                    token = jwt.encode({'email': selected_user.email}, 'secretkey-soheon', algorithm='HS256').decode('utf-8')
+                    token = jwt.encode({'email': selected_user.email}, SECRET_KEY, algorithm='HS256').decode('utf-8')
                     return JsonResponse({"token":token}, status=200)
                 
                 return HttpResponse(status=401)

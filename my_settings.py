@@ -10,6 +10,6 @@ DATABASES = {
     }
 }
 
-SECRET = {
-        'secret':'시크릿키',
+SECRET_KEY = {
+        'SECRET':'SOPHIA',
 }
